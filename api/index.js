@@ -28,6 +28,10 @@ app.get('/api', (req, res) => {
   res.send(`Servidor de Callback TikTok rodando!`);
 });
 
+app.get('/callback', (req, res) => {
+  res.send(`callback rodando!`);
+});
+
 // Endpoint que recebe o callback do TikTok
 // Note o caminho '/api/tiktok/callback' por causa da estrutura da Vercel
 app.get('/api/tiktok/callback', async (req, res) => {
