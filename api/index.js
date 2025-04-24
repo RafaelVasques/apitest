@@ -31,11 +31,14 @@ app.get('/api', (req, res) => {
 // Endpoint que recebe o callback do TikTok
 // Note o caminho '/api/tiktok/callback' por causa da estrutura da Vercel
 app.get('/api/tiktok/callback', async (req, res) => {
-  const authorizationCode = req.query.code;
-  const receivedState = req.query.state; // TODO: Validar o state!
 
-  console.log('Callback recebido. Código:', authorizationCode);
-  console.log('Usando Redirect URI para troca:', req.dynamicRedirectUri);
+  res.send(`Rota funcionando!`);
+
+  // const authorizationCode = req.query.code;
+  // const receivedState = req.query.state; // TODO: Validar o state!
+
+  // console.log('Callback recebido. Código:', authorizationCode);
+  // console.log('Usando Redirect URI para troca:', req.dynamicRedirectUri);
 
 
   // if (!authorizationCode) {
