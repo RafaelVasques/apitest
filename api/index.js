@@ -6,26 +6,26 @@ const app = express();
 const TIKTOK_CLIENT_KEY = process.env.TIKTOK_CLIENT_KEY || 'SEU_CLIENT_KEY_PADRAO';
 const TIKTOK_CLIENT_SECRET = process.env.TIKTOK_CLIENT_SECRET || 'SEU_CLIENT_SECRET_PADRAO';
 // A URL DEVE ser a URL final do seu deploy na Vercel + /api/tiktok/callback
-const YOUR_REDIRECT_URI = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/tiktok/callback` : 'SUA_URL_DE_DEPLOY_COMPLETA/api/tiktok/callback';
+const YOUR_REDIRECT_URI = `https://apitest-omega-taupe.vercel.app/api/tiktok/callback`;
 const TIKTOK_TOKEN_ENDPOINT = 'https://open.tiktokapis.com/v2/oauth/token/';
 
 // Middleware para garantir que o redirect_uri esteja atualizado (específico da Vercel)
 app.use((req, res, next) => {
   // Define o redirect_uri dinamicamente baseado na URL de deploy da Vercel, se disponível
-  req.dynamicRedirectUri = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/tiktok/callback` : YOUR_REDIRECT_URI;
+  req.dynamicRedirectUri = `https://apitest-omega-taupe.vercel.app/api/tiktok/callback`;
   // Garante que YOUR_REDIRECT_URI também seja atualizado se necessário (para a troca do token)
-  if (process.env.VERCEL_URL && YOUR_REDIRECT_URI !== req.dynamicRedirectUri) {
-    // Atualiza a variável global se necessário (cuidado com concorrência se houvesse múltiplos usuários)
-    // Para este caso de uso único, pode ser aceitável.
-    console.log("Atualizando Redirect URI para:", req.dynamicRedirectUri);
-  }
+  // if (YOUR_REDIRECT_URI !== req.dynamicRedirectUri) {
+  //   // Atualiza a variável global se necessário (cuidado com concorrência se houvesse múltiplos usuários)
+  //   // Para este caso de uso único, pode ser aceitável.
+  //   console.log("Atualizando Redirect URI para:", req.dynamicRedirectUri);
+  // }
   next();
 });
 
 
 // Rota raiz simples (opcional)
 app.get('/api', (req, res) => {
-  res.send(`Servidor de Callback TikTok rodando! sk: ${TIKTOK_CLIENT_KEY} - cs: ${TIKTOK_CLIENT_SECRET} - ruri: ${process.env.VERCEL_URL}`);
+  res.send(`Servidor de Callback TikTok rodando! sk: ${TIKTOK_CLIENT_KEY} - cs: ${TIKTOK_CLIENT_SECRET}`);
 });
 
 // Endpoint que recebe o callback do TikTok
