@@ -9,10 +9,9 @@ const TIKTOK_CLIENT_SECRET = process.env.TIKTOK_CLIENT_SECRET || 'SEU_CLIENT_SEC
 const YOUR_REDIRECT_URI = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/tiktok/callback` : 'SUA_URL_DE_DEPLOY_COMPLETA/api/tiktok/callback';
 const TIKTOK_TOKEN_ENDPOINT = 'https://open.tiktokapis.com/v2/oauth/token/';
 
-console.log("CHAGAMOS AQUI")
-
 // Middleware para garantir que o redirect_uri esteja atualizado (específico da Vercel)
 app.use((req, res, next) => {
+  
   // Define o redirect_uri dinamicamente baseado na URL de deploy da Vercel, se disponível
   req.dynamicRedirectUri = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/tiktok/callback` : YOUR_REDIRECT_URI;
   // Garante que YOUR_REDIRECT_URI também seja atualizado se necessário (para a troca do token)
@@ -27,6 +26,7 @@ app.use((req, res, next) => {
 
 // Rota raiz simples (opcional)
 app.get('/api', (req, res) => {
+  console.log("CHAGAMOS AQUI")
   res.send('Servidor de Callback TikTok rodando!');
 });
 
