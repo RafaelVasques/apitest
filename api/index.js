@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 // Rota raiz simples (opcional)
 app.get('/api', (req, res) => {
-  res.send(`Servidor de Callback TikTok rodando! sk: ${TIKTOK_CLIENT_KEY} - cs: ${TIKTOK_CLIENT_SECRET} - ruri: ${YOUR_REDIRECT_URI}`);
+  res.send(`Servidor de Callback TikTok rodando! sk: ${TIKTOK_CLIENT_KEY} - cs: ${TIKTOK_CLIENT_SECRET} - ruri: ${process.env.VERCEL_URL}`);
 });
 
 // Endpoint que recebe o callback do TikTok
